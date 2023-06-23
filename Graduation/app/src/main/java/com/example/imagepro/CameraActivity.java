@@ -70,7 +70,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         try{
-            objectDetectorClass=new objectDetectorClass(getAssets(),"hand_model.tflite","custom_label.txt",300,"tf_model.tflite",64);
+            objectDetectorClass=new objectDetectorClass(getAssets(),"hand_model.tflite","custom_label.txt",300,"ASL.tflite",96);
             Log.d("MainActivity","Model is successfully loaded");
         }
         catch (IOException e){
@@ -120,6 +120,9 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba=inputFrame.rgba();
         mGray=inputFrame.gray();
+        // Before watching this video please watch previous video of loading tensorflow lite model
+
+        // now call that function
         Mat out=new Mat();
         out=objectDetectorClass.recognizeImage(mRgba);
 
