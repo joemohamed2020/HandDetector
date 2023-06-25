@@ -7,11 +7,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -22,6 +25,7 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class Combine extends Activity implements CameraBridgeViewBase.CvCameraViewListener2{
     private static final String TAG="MainActivity";
@@ -34,6 +38,8 @@ public class Combine extends Activity implements CameraBridgeViewBase.CvCameraVi
     private Button del;
     private Button space;
     private TextView translates;
+    private ImageButton voice;
+    private TextToSpeech textToSpeech;
     private BaseLoaderCallback mLoaderCallback =new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -79,6 +85,8 @@ public class Combine extends Activity implements CameraBridgeViewBase.CvCameraVi
         add = findViewById(R.id.add);
         space = findViewById(R.id.space);
         translates = findViewById(R.id.translates);
+        voice = findViewById(R.id.voice);
+
         try{
             SignLanguage=new SignLanguage(translates,add,del,space,getAssets(),"hand_model.tflite","custom_label.txt",300,"ASL.tflite",96);
             Log.d("MainActivity","Model is successfully loaded");
@@ -87,6 +95,14 @@ public class Combine extends Activity implements CameraBridgeViewBase.CvCameraVi
             Log.d("MainActivity","Getting some error");
             e.printStackTrace();
         }
+        textToSpeech=new TextToSpeech(this, status -> {
+            if (status != TextToSpeech.ERROR){
+                textToSpeech.setLanguage(Locale.ENGLISH);
+            }
+        });
+        voice.setOnClickListener(view -> {
+            textToSpeech.speak(translates.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+        });
     }
 
     @Override
