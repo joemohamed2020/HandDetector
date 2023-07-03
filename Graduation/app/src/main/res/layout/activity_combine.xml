@@ -2,13 +2,13 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        >
+        android:background="@color/black">
 
         <org.opencv.android.JavaCameraView
             android:id="@+id/frame_Surface"
@@ -19,59 +19,64 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:background="@color/default_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frame_Surface"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/translation"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:id="@+id/translation_header_textview" />
+            <ImageButton
+                android:id="@+id/voice"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:background="@drawable/button_yellow"
+                android:src="@drawable/voice" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:textStyle="bold"
-                android:textSize="25dp"
+                android:textSize="24sp"
                 android:textColor="@color/white"
-                android:id="@+id/translates"
-                />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/voice"
-                android:id="@+id/voice"
-                />
-
+                android:id="@+id/translates" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <Button
                     android:layout_width="wrap_content"
+                    android:background="@drawable/buttons_css"
                     android:layout_height="wrap_content"
                     android:text="Add"
                     android:layout_weight="3"
                     android:layout_marginEnd="5dp"
-                    android:id="@+id/add"
-                    />
+                    android:id="@+id/add" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Del"
+                    android:background="@drawable/buttons_css"
+                    android:text="Delete"
                     android:layout_weight="3"
                     android:layout_marginEnd="5dp"
-                    android:id="@+id/del"
-                    />
+                    android:id="@+id/del" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Space"
+                    android:background="@drawable/buttons_css"
                     android:layout_weight="3"
                     android:layout_marginEnd="5dp"
-                    android:id="@+id/space"
-                    />
-
+                    android:id="@+id/space" />
             </LinearLayout>
-
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
