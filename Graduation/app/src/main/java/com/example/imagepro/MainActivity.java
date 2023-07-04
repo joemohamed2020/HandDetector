@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity: ","Opencv failed to load");
         }
     }
-
-    private Button camera_button;
     private Button combine;
 
     @Override
@@ -38,15 +36,10 @@ public class MainActivity extends AppCompatActivity {
         // Next tutorial will be about predicting using Interpreter
 
 
-        camera_button=findViewById(R.id.camera_button);
+
         combine = findViewById(R.id.combineLetters);
 
-        camera_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
+
         combine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
