@@ -2,6 +2,7 @@ package com.example.imagepro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.imagepro.BackGroundWork.SignUpBackgroundTask;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -24,6 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView textView ;
     TextInputEditText email,password,name,confirmPass;
+    private boolean isBackPressedOnce =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +112,22 @@ public class SignupActivity extends AppCompatActivity {
                 }
         );
         checkEmailTask.execute(type, Name, Email , Password, Confirm);
+    }
+    @Override
+    public void onBackPressed() {
+        if (isBackPressedOnce){
+            this.finish();
+        }
+        else {
+            Toast.makeText(this,"Back Again To Exit",Toast.LENGTH_SHORT).show();
+            isBackPressedOnce = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isBackPressedOnce = false;
+                }
+            },2000);
+        }
     }
 
 

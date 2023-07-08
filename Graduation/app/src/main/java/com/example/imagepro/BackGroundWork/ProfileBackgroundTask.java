@@ -1,10 +1,14 @@
-package com.example.imagepro;
+package com.example.imagepro.BackGroundWork;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.example.imagepro.Constants.Constants;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -12,7 +16,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-class ProfileBackgroundTask extends AsyncTask<String, Void, String> {
+public class ProfileBackgroundTask extends AsyncTask<String, Void, String> {
 
     private Context context;
 
@@ -28,13 +32,12 @@ class ProfileBackgroundTask extends AsyncTask<String, Void, String> {
         String newEmail = params[3];
         String password = params[4];
 
-        String profileUrl = "http://192.168.1.7:80/profile.php";
 
         if (type.equals("Profile")) {
             try {
-                URL url = new URL(profileUrl);
+                URL url = new URL(Constants.profile);
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                http.setRequestMethod("PUT");
+                http.setRequestMethod("POST");
                 http.setDoInput(true);
                 http.setDoOutput(true);
 
@@ -45,27 +48,29 @@ class ProfileBackgroundTask extends AsyncTask<String, Void, String> {
                 http.getOutputStream().write(data.getBytes());
 
                 int responseCode = http.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    // Process the response from the server if needed
-                    // For example, read the response using http.getInputStream()
-                    // and parse the JSON data
 
-                    return "Profile update successful";
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(http.getInputStream()));
+                    String line;
+                    StringBuilder response = new StringBuilder();
+                    while ((line = in.readLine()) != null) {
+                        response.append(line);
+                    }
+                    in.close();
+
+                    return "Profile Updated Successfully";
                 } else {
-                    return "Profile update failed";
+                    return null;
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
         }
-        return null;
+        return "Error Updating Record";
     }
+
+
 
     @Override
     protected void onPostExecute(String result) {

@@ -1,4 +1,4 @@
-package com.example.imagepro;
+package com.example.imagepro.Detection;
 
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
@@ -229,57 +229,57 @@ public class SignLanguage {
     private String getAlphabets(float value){
         String out ="";
         if (value>=-0.5 & value<0.5){
-            out = "A";
+            out = "a";
         }else if (value>=0.5 & value<1.5){
-            out = "B";
+            out = "b";
         }else if (value>=1.5 & value<2.5){
-            out = "C";
+            out = "c";
         }else if (value>=2.5 & value<3.5){
-            out = "D";
+            out = "d";
         }else if (value>=3.5 & value<4.5){
-            out = "E";
+            out = "e";
         }else if (value>=4.5 & value<5.5){
-            out = "F";
+            out = "f";
         }else if (value>=5.5 & value<6.5){
-            out = "G";
+            out = "g";
         }else if (value>=6.5 & value<7.5){
-            out = "H";
+            out = "h";
         }else if (value>=7.5 & value<8.5){
-            out = "I";
+            out = "i";
         }else if (value>=8.5 & value<9.5){
-            out = "J";
+            out = "j";
         }else if (value>=9.5 & value<10.5){
-            out = "K";
+            out = "k";
         }else if (value>=10.5 & value<11.5){
-            out = "L";
+            out = "l";
         }else if (value>=11.5 & value<12.5){
-            out = "M";
+            out = "m";
         }else if (value>=12.5 & value<13.5){
-            out = "N";
+            out = "n";
         }else if (value>=13.5 & value<14.5){
-            out = "O";
+            out = "o";
         }else if (value>=14.5 & value<15.5){
-            out = "P";
+            out = "p";
         }else if (value>=15.5 & value<16.5){
-            out = "Q";
+            out = "q";
         }else if (value>=16.5 & value<17.5){
-            out = "R";
+            out = "r";
         }else if (value>=17.5 & value<18.5){
-            out = "S";
+            out = "s";
         }else if (value>=18.5 & value<19.5){
-            out = "T";
+            out = "t";
         }else if (value>=19.5 & value<20.5){
-            out = "U";
+            out = "u";
         }else if (value>=20.5 & value<21.5){
-            out = "V";
+            out = "v";
         }else if (value>=21.5 & value<22.5){
-            out = "W";
+            out = "w";
         }else if (value>=22.5 & value<23.5){
-            out = "X";
+            out = "x";
         }else if (value>=23.5 & value<24.5){
-            out = "Y";
+            out = "y";
         }else {
-            out = "Z";
+            out = "z";
         }
         return out;
     }

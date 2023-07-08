@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.example.imagepro.BackGroundWork.SessionManager;
 import com.example.imagepro.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 
@@ -66,6 +67,13 @@ public class MainActivity extends ParentDrawer {
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.profile_menu_item) {
             IntentClass.goToActivity(this,Profile.class);
+        }
+        else if(menuItem.getItemId() == R.id.logout_menu_item){
+            SessionManager sm=new SessionManager(this);
+            sm.setLoggedIn(false);
+            sm.clearSession();
+
+            IntentClass.goToActivity(this,SigninActivity.class);
         }
         return true;
     }

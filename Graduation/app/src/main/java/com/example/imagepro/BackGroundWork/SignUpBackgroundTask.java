@@ -1,8 +1,10 @@
-package com.example.imagepro;
+package com.example.imagepro.BackGroundWork;
 
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import com.example.imagepro.Constants.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +24,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.function.Consumer;
 
-class SignUpBackgroundTask extends AsyncTask<String, Void, String> {
+public class SignUpBackgroundTask extends AsyncTask<String, Void, String> {
 
     private final Runnable onEmailAlreadyExist;
     private final Runnable onSignupSuccess;
@@ -43,7 +45,6 @@ class SignUpBackgroundTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String signupUrl = "http://192.168.1.7:80/signup.php";
 
 
         if (type.equals("Signup")) {
@@ -53,7 +54,7 @@ class SignUpBackgroundTask extends AsyncTask<String, Void, String> {
                 String password = params[3];
                 String confirm = params[4];
 
-                URL url = new URL(signupUrl);
+                URL url = new URL(Constants.register);
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setRequestMethod("POST");
                 http.setDoInput(true);

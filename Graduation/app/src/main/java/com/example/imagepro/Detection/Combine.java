@@ -1,4 +1,4 @@
-package com.example.imagepro;
+package com.example.imagepro.Detection;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,12 +10,13 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.imagepro.R;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -33,7 +34,7 @@ public class Combine extends Activity implements CameraBridgeViewBase.CvCameraVi
     private Mat mRgba;
     private Mat mGray;
     private CameraBridgeViewBase mOpenCvCameraView;
-    private SignLanguage SignLanguage;
+    private com.example.imagepro.Detection.SignLanguage SignLanguage;
     private Button add;
     private Button del;
     private Button space;

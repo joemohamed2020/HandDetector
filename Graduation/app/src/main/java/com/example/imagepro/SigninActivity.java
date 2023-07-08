@@ -1,13 +1,12 @@
 package com.example.imagepro;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,15 +16,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.imagepro.BackGroundWork.SessionBackgroundTask;
+import com.example.imagepro.BackGroundWork.SessionManager;
+import com.example.imagepro.BackGroundWork.SignInBackgroundTask;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-
 public class SigninActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextInputEditText email, password;
-
+    SessionManager sessionManager;
+    private boolean isBackPressedOnce =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +36,10 @@ public class SigninActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Signlator");
 
+        sessionManager = new SessionManager(this);
+
         TextView textView = findViewById(R.id.textView);
-        String text = "Are you new user? Register";
+        String text = "Are you a new user? Register";
         SpannableString spannableString = new SpannableString(text);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -50,24 +54,26 @@ public class SigninActivity extends AppCompatActivity {
         password = findViewById(R.id.editTextTextPersonName2);
 
         Button button = findViewById(R.id.button);
-        button.setOnClickListener(this::OnLogin);
+        button.setOnClickListener(view -> onLogin(view));
 
-        //goToHome();
-
+        if (sessionManager.isLoggedIn()) {
+            // User is already logged in, redirect to HomeActivity
+            goToHome();
+        }
     }
 
-    public void OnLogin(View view) {
-        String Email = Objects.requireNonNull(email.getText()).toString();
-        String Password = Objects.requireNonNull(password.getText()).toString();
+    public void onLogin(View view) {
+        String emailText = email.getText().toString();
+        String passwordText = password.getText().toString();
         String type = "login";
 
         // Perform input validations
-        if (Email.isEmpty()) {
+        if (emailText.isEmpty()) {
             email.setError("Email is required");
             return;
         }
 
-        if (Password.isEmpty()) {
+        if (passwordText.isEmpty()) {
             password.setError("Password is required");
             return;
         }
@@ -78,27 +84,45 @@ public class SigninActivity extends AppCompatActivity {
                 () -> {
                     // Handle email does not exist
                     email.setError("Email does not exist");
-                    Log.d("SigninActivity","ana hna ya jhon");
                 },
                 () -> {
                     // Handle incorrect password
                     password.setError("Incorrect password");
-
                 },
                 () -> {
-                    SessionManager sm = new SessionManager(SigninActivity.this);
-                    sm.setLoggedInEmail(Email);
-                    Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish(); // Optional: Finish the current activity
+                    // Handle successful login
+                    sessionManager.setLoggedIn(true);
+                    sessionManager.setLoggedInEmail(emailText);
+                    goToHome();
                 },
                 error -> {
                     // Handle task failed
-                    Toast.makeText(this,  error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
                 }
         );
-        checkEmailTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, Email, Password);
-
+        checkEmailTask.execute(type, emailText, passwordText);
     }
 
+    private void goToHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish(); // Optional: Finish the current activity
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isBackPressedOnce){
+            this.finish();
+        }
+        else {
+            Toast.makeText(this,"Back Again To Exit",Toast.LENGTH_SHORT).show();
+            isBackPressedOnce = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isBackPressedOnce = false;
+                }
+            },2000);
+        }
+    }
 }

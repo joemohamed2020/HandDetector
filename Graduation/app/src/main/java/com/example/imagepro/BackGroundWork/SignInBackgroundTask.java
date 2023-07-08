@@ -1,7 +1,9 @@
-package com.example.imagepro;
+package com.example.imagepro.BackGroundWork;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import com.example.imagepro.Constants.Constants;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +18,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.function.Consumer;
 
-class SignInBackgroundTask extends AsyncTask<String, Void, String> {
+public class SignInBackgroundTask extends AsyncTask<String, Void, String> {
 
     private Context context;
     private Runnable onEmailDoesNotExist;
@@ -37,7 +39,6 @@ class SignInBackgroundTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String loginUrl = "http://192.168.1.7:80/login.php";
 
 
         if (type.equals("login")) {
@@ -45,7 +46,7 @@ class SignInBackgroundTask extends AsyncTask<String, Void, String> {
                 String email = params[1];
                 String password = params[2];
 
-                URL url = new URL(loginUrl);
+                URL url = new URL(Constants.login);
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setRequestMethod("POST");
                 http.setDoInput(true);
