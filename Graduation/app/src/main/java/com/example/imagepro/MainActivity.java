@@ -1,51 +1,79 @@
 package com.example.imagepro;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 
-import org.opencv.android.OpenCVLoader;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
-    static {
-        if(OpenCVLoader.initDebug()){
-            Log.d("MainActivity: ","Opencv is loaded");
-        }
-        else {
-            Log.d("MainActivity: ","Opencv failed to load");
-        }
-    }
-    private Button combine;
+import com.example.imagepro.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
+
+public class MainActivity extends ParentDrawer {
+    ActivityMainBinding binding;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-                                                                                
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        toolbar = findViewById(R.id.pre);
+        drawerLayout =  findViewById(R.id.drawer);
+        navigationView =  findViewById(R.id.nav);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Numbers");
+        Drawer.setupDrawer(this,toolbar,drawerLayout,navigationView);
 
-        // select device and run
-        // we successfully loaded model
-        // before next tutorial
-        // as we are going to predict in Camera Activity
-        // Next tutorial will be about predicting using Interpreter
-
-
-
-        combine = findViewById(R.id.combineLetters);
-
-
-        combine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,Combine.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        replaceFrag(new NumbersFragment());
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.alpha) {
+                replaceFrag(new AlphaFragment());
+                Objects.requireNonNull(getSupportActionBar()).setTitle("Alpha");
+            } else if (itemId == R.id.greet) {
+                replaceFrag(new GreetingsFragment());
+                Objects.requireNonNull(getSupportActionBar()).setTitle("Greeting");
+            } else if (itemId == R.id.num) {
+                replaceFrag(new NumbersFragment());
+                Objects.requireNonNull(getSupportActionBar()).setTitle("Numbers");
             }
+            return true;
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.profile_menu_item) {
+            IntentClass.goToActivity(this,Profile.class);
+        }
+        return true;
+    }
+    private void replaceFrag(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
+    }
+
 }

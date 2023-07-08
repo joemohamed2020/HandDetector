@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/numbers"
+        android:icon="@drawable/list"
+        android:id="@+id/num"/>
+    <item android:title="@string/greetings"
+        android:icon="@drawable/deal"
+        android:id="@+id/greet"/>
+    <item android:title="@string/alpha"
+        android:icon="@drawable/alphabet"
+        android:id="@+id/alpha"/>
+</menu>

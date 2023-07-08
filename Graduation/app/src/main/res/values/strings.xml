@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">ImagePro</string>
+    <string name="app_name">Graduation Project</string>
+    <string name="email">Email</string>
+    <string name="userName">User Name</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="already_have_an_account">Already have an Account?</string>
+    <string name="title_activity_tst">tst</string>
+    <string name="alpha">Alpha</string>
+    <string name="greetings">Greetings</string>
+    <string name="numbers">Numbers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="alphabetic">Alphabetic</string>
+    <string name="imageview">ImageView</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">google</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>
