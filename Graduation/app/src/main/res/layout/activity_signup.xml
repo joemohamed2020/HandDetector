@@ -89,7 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
-                    android:paddingBottom="15dp">
+                    android:paddingBottom="15dp"
+                    app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextTextPersonName3"
@@ -101,7 +102,8 @@
                         android:drawableStart="@drawable/password"
                         android:drawablePadding="10dp"
                         android:paddingStart="15dp"
-                        android:paddingTop="5dp" />
+                        android:paddingTop="5dp"
+                        android:inputType="textPassword"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +111,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/confirm_password"
-                    android:paddingBottom="15dp">
+                    android:paddingBottom="15dp"
+                    app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextTextPersonName4"
@@ -121,7 +124,8 @@
                         android:drawableStart="@drawable/password"
                         android:drawablePadding="10dp"
                         android:paddingStart="15dp"
-                        android:paddingTop="5dp" />
+                        android:paddingTop="5dp"
+                        android:inputType="textPassword"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

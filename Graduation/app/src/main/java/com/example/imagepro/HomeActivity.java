@@ -73,7 +73,7 @@ public class HomeActivity extends ParentDrawer  {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
         else if (isBackPressedOnce){
-            this.finish();
+            this.finishAffinity();
         }
         else {
             Toast.makeText(this,"Back Again To Exit",Toast.LENGTH_SHORT).show();
